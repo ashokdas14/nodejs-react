@@ -3,7 +3,7 @@ pipeline {
     stages {
 		stage('Git Checkout'){
             steps{
-            git branch: 'main', url: 'https://github.com/jenkins-docs/simple-node-js-react-npm-app.git'
+            git branch: 'main', url: 'https://github.com/ashokdas14/simple-node-js-react-npm-app.git'
             }
         }
         stage('Build') {
