@@ -13,7 +13,9 @@ pipeline {
         }
 	stage('permission') {
 	    steps {
-		    sh 'chmod 777 jenkins/script/test.sh'
+		    sh 'chmod 777 ./jenkins/scripts/test.sh'
+		    sh 'chmod 777 ./jenkins/scripts/deliver.sh'
+		    sh 'chmod 777 ./jenkins/scripts/kill.sh'
 	    }
     }
         stage('Test') {
