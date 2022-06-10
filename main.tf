@@ -22,7 +22,6 @@ resource "google_compute_instance" "grafana" {
     }
   }
 }
-
 resource "google_compute_firewall" "allow-tcp" {
   name = "allow-tcp"
   network = "default"
