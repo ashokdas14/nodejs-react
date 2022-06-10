@@ -1,14 +1,14 @@
 provider "google" {
 credentials = "${file("cr-gcp-348307-152507cf30d0.json")}"
 project = "cr-gcp-348307"
-region = "us-west1"
+region = "us-central1"
 }
 
 resource "google_compute_instance" "grafana" {
   project      = "cr-gcp-348307"
   name         = "grafana"
   machine_type = "e2-medium"
-  zone         = "us-west1-a"
+  zone         = "us-central1-a"
   tags         = ["ssh", "port-9090", "port-3000", "port-8080", "port-9000"]
    boot_disk {
     initialize_params {
@@ -17,7 +17,7 @@ resource "google_compute_instance" "grafana" {
   }
   network_interface {
     network = "default"
-    network_ip = "10.138.0.12"
+    network_ip = "10.128.0.12"
     access_config {
     }
   }
