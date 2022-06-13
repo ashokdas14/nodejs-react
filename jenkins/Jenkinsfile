@@ -9,6 +9,19 @@ pipeline {
             git branch: 'main', url: 'https://github.com/ashokdas14/simple-node-js-react-npm-app.git'
             }
         }
+	stage('Build') {
+            steps {
+                sh 'npm install'
+	        sh 'chmod 777 ./jenkins/scripts/test.sh'
+		sh 'chmod 777 ./jenkins/scripts/deliver.sh'
+		sh 'chmod 777 ./jenkins/scripts/kill.sh'
+            }
+        }
+	stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
 	stage('Terraform'){
             steps{
             sh 'terraform init'
@@ -26,20 +39,7 @@ pipeline {
             sh 'terraform apply --auto-approve';
             }
         }
-        stage('Build') {
-            steps {
-                sh 'npm install'
-	        sh 'chmod 777 ./jenkins/scripts/test.sh'
-		sh 'chmod 777 ./jenkins/scripts/deliver.sh'
-		sh 'chmod 777 ./jenkins/scripts/kill.sh'
-            }
-        }
-	stage('Test') {
-            steps {
-                sh './jenkins/scripts/test.sh'
-            }
-        }
-        stage('Deliver') {
+    stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
