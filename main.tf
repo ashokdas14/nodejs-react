@@ -1,11 +1,11 @@
 provider "google" {
-credentials = "${file("cr-gcp-348307-152507cf30d0.json")}"
-project = "cr-gcp-348307"
+credentials = "${file("cr-gcp-353206-4d75f005cf64.json")}"
+project = "cr-gcp-353206"
 region = "us-central1"
 }
 
 resource "google_compute_instance" "grafana" {
-  project      = "cr-gcp-348307"
+  project      = "cr-gcp-353206"
   name         = "grafana"
   machine_type = "e2-medium"
   zone         = "us-central1-a"
