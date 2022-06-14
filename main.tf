@@ -3,7 +3,6 @@ credentials = "${file("cr-gcp-353206-4d75f005cf64.json")}"
 project = "cr-gcp-353206"
 region = "us-central1"
 }
-
 resource "google_compute_instance" "grafana" {
   project      = "cr-gcp-353206"
   name         = "grafana"
