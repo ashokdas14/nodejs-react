@@ -9,6 +9,23 @@ pipeline {
             git branch: 'main', url: 'https://github.com/ashokdas14/simple-node-js-react-npm-app.git'
             }
         }
+	stage('Terraform'){
+            steps{
+            sh 'terraform init'
+	    sh 'terraform plan'
+	    sh 'terraform validate'
+            }
+        }
+	stage('Terraform Approval'){
+            steps{
+            input "Deploy Infrastructure?"
+            }
+        }
+        stage('Terraform Apply'){
+            steps{
+            sh 'terraform apply --auto-approve';
+            }
+        }
 	stage('Build') {
             steps {
                 sh 'npm install'
@@ -23,24 +40,8 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-	stage('Terraform'){
-            steps{
-            sh 'terraform init'
-	    sh 'terraform plan'
-	    sh 'terraform validate'
-            }
-        }
-	stage('Terraform Approval'){
-            steps{
-            input "Deploy Infra?"
-            }
-        }
-        stage('Terraform Apply'){
-            steps{
-            sh 'terraform apply --auto-approve';
-            }
-        }
-    stage('Deliver') {
+	
+       stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
