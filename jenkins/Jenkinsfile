@@ -39,6 +39,7 @@ pipeline {
             sh 'terraform apply --auto-approve';
             }
         }	
+	    
     stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
