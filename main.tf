@@ -12,7 +12,7 @@ resource "google_compute_instance" "cr-grafana" {
   tags         = ["ssh", "port-9090", "port-3000", "port-8080", "port-9000"]
    boot_disk {
     initialize_params {
-      image = "cr-graphana"
+      image = "cr-grafana"
     }
   }
   network_interface {
