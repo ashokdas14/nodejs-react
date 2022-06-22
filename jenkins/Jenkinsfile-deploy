@@ -1,0 +1,53 @@
+pipeline {
+    agent {
+            label 'worker02'
+        }
+    options {
+        office365ConnectorWebhooks([[
+            notifyBuildStart: true, 
+            notifyAborted: true, 
+            notifyBackToNormal: true, 
+            notifyFailure: true, 
+            notifyNotBuilt: true, 
+            notifyRepeatedFailure: true, 
+            notifySuccess: true, 
+            notifyUnstable: true, 
+            startNotification: true, 
+            url: 'https://criticalrivertechnologies.webhook.office.com/webhookb2/ad880db1-09c4-41b0-b58e-bcb66f692e6e@94525b16-dc90-4dcc-82bc-0719e14b378e/JenkinsCI/e194c95c96f34844b3f36bc87c86819e/c4ffb209-fa7f-4fb0-b560-207406a421f6']])
+    }
+	stages {
+		stage('Git Checkout'){
+            steps{
+            git branch: 'main', url: 'https://github.com/ashokdas14/nodejs-react.git'
+            }
+        }
+    stage('Install Dependecy') {
+            steps {
+                sh 'npm install'
+				sh 'chmod 777 ./jenkins/scripts/test.sh'
+				sh 'chmod 777 ./jenkins/scripts/deliver.sh'
+				sh 'chmod 777 ./jenkins/scripts/kill.sh'
+            }
+        }	
+	stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+    stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+			}
+		}
+	stage('DAST') {
+			steps {
+			    sh 'rm ZAP_2.11.1_Linux.tar.gz'
+                sh 'wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz'
+                sh 'tar -xvf ZAP_2.11.1_Linux.tar.gz'
+                sh 'cd ZAP_2.11.1'
+                sh 'sudo chmod 777 /home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh'
+                sh '/home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh -cmd -quickurl http://localhost:3000/ -quickprogress -quickout ../zap_report.html'
+            }
+        }
+    }
+}
