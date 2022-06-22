@@ -47,6 +47,8 @@ pipeline {
                 sh 'cd ZAP_2.11.1'
                 sh 'sudo chmod 777 /home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh'
                 sh '/home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh -cmd -quickurl http://localhost:3000/ -quickprogress -quickout ../zap_report.html'
+				input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
