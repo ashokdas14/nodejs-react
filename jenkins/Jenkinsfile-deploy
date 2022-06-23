@@ -18,7 +18,7 @@ pipeline {
                                 [name: "Job Name", template: "started ${env.JOB_NAME}"],
                                   [name: "Build Url", template: "${env.BUILD_URL}"],
         ]]])
-    }
+		}
 	stages {
 		stage('Deploy Approval')
 			steps{
@@ -26,7 +26,7 @@ pipeline {
 				factDefinitions: [[name: "Build Number", template: "${env.BUILD_NUMBER}"],
 								 [name: "Job Name", template: "started ${env.JOB_NAME}"],
 								 [name: "Build Url", template: "${env.BUILD_URL}"],
-								 [name: "Approval", template: "<a href=${env.BUILD_URL}input>click to approve</a>"]]
+								 [name: "Approval", template: "<a href=${env.BUILD_URL}input>Click Proceed to Deploy Application</a>"]]
 				input 'Click Proceed to Deploy Application'
 				}
 		}
