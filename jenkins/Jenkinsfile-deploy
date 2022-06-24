@@ -60,8 +60,17 @@ pipeline {
                 sh 'cd ZAP_2.11.1'
                 sh 'sudo chmod 777 /home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh'
                 sh '/home/ad_ashok14/jenkins/workspace/sbx_nodejs_deploy/ZAP_2.11.1/zap.sh -cmd -quickurl http://localhost:3000/ -quickprogress -quickout ../zap_report.html'
-				//input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                //sh './jenkins/scripts/kill.sh'
+			}
+        }
+    stage('Kill'){
+            steps{
+                office365ConnectorSend webhookUrl: 'https://criticalrivertechnologies.webhook.office.com/webhookb2/ad880db1-09c4-41b0-b58e-bcb66f692e6e@94525b16-dc90-4dcc-82bc-0719e14b378e/JenkinsCI/e194c95c96f34844b3f36bc87c86819e/c4ffb209-fa7f-4fb0-b560-207406a421f6',
+				factDefinitions: [[name: "Build Number", template: "${env.BUILD_NUMBER}"],
+								 [name: "Job Name", template: "started ${env.JOB_NAME}"],
+								 [name: "Build Url", template: "${env.BUILD_URL}"],
+								 [name: "Approval", template: "<a href=${env.BUILD_URL}input>Click Proceed to continue</a>"]]
+				input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
