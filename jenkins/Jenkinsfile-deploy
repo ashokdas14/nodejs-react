@@ -15,6 +15,7 @@ pipeline {
             startNotification: true, 
             url: 'https://criticalrivertechnologies.webhook.office.com/webhookb2/ad880db1-09c4-41b0-b58e-bcb66f692e6e@94525b16-dc90-4dcc-82bc-0719e14b378e/JenkinsCI/e194c95c96f34844b3f36bc87c86819e/c4ffb209-fa7f-4fb0-b560-207406a421f6',
             factDefinitions: [[name: "Build Number", template: "${env.BUILD_NUMBER}"],
+                             [name: "Version Number", template: "1.0.${BUILDS_THIS_YEAR}"],
                                 [name: "Job Name", template: "started ${env.JOB_NAME}"],
                                   [name: "Build Url", template: "${env.BUILD_URL}"]]]])
 		}
