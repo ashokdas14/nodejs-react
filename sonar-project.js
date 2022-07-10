@@ -6,3 +6,4 @@ const sonarqubeScanner = require('sonarqube-scanner');
        'sonar.inclusions' : 'src/**' // Entry point of your code
        }
      }, () => {});
+
